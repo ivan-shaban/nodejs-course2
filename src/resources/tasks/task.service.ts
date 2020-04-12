@@ -1,3 +1,5 @@
+import createError from 'http-errors'
+
 import {
     create,
     deleteByBoardId,
@@ -9,23 +11,45 @@ import {
 } from './task.memory.repository'
 import { TaskData } from './task.model'
 
-export const getAllTasks = (boardId: string) =>
-    getByBoardId(boardId)
+export const getAllTasks = async (boardId: string) => {
+    return getByBoardId(boardId)
+}
 
-export const getTaskById = (boardId: string, taskId: string) =>
-    getById(boardId, taskId)
+export const getTaskById = async (boardId: string, taskId: string) => {
+    const task = await getById(boardId, taskId)
+    if (task) {
+        return task
+    } else {
+        throw new createError.NotFound(`No task with board id: ${boardId} and id: "${taskId}" found`)
+    }
+}
 
-export const getTaskByUserId = (userId: string) =>
-    getByUserId(userId)
+export const getTaskByUserId = async (userId: string) => {
+    return await getByUserId(userId)
+}
 
-export const createTask = (boardId: string, taskData: TaskData) =>
-    create(boardId, taskData)
+export const createTask = async (boardId: string, taskData: TaskData) => {
+    return create(boardId, taskData)
+}
 
-export const updateTask = (boardId: string, taskId: string, taskData: Partial<TaskData>) =>
-    update(boardId, taskId, taskData)
+export const updateTask = async (boardId: string, taskId: string, taskData: Partial<TaskData>) => {
+    const result = await update(boardId, taskId, taskData)
+    if (result) {
+        return result
+    } else {
+        throw new createError.NotFound(`No task with board id: ${boardId} and id: "${taskId}" found`)
+    }
+}
 
-export const deleteTaskById = (boardId: string, taskId: string) =>
-    deleteById(boardId, taskId)
+export const deleteTaskById = async (boardId: string, taskId: string) => {
+    const result = await deleteById(boardId, taskId)
+    if (result) {
+        return result
+    } else {
+        throw new createError.NotFound(`No task with board id: ${boardId} and id: "${taskId}" found`)
+    }
+}
 
-export const deleteTaskByBoardId = (boardId: string) =>
-    deleteByBoardId(boardId)
+export const deleteTaskByBoardId = async (boardId: string) => {
+    return deleteByBoardId(boardId)
+}
