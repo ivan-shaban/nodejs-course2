@@ -3,7 +3,6 @@ import { Router } from 'express'
 import { tasksRouter } from '../tasks/task.router'
 import { handleError } from '../../common/logging'
 
-import { Board } from './board.model'
 import {
     createBoard,
     deleteBoard,
@@ -14,24 +13,24 @@ import {
 
 export const boardsRouter = Router()
     .get('/', handleError(async (req, res) => {
-        const users = await getAllBoards()
+        const boards = await getAllBoards()
 
-        res.json(users.map(Board.toResponse))
+        res.status(200).json(boards)
     }))
     .get('/:id', handleError(async (req, res) => {
         const board = await getBoardById(req.params.id)
 
-        res.json(Board.toResponse(board))
+        res.status(200).json(board)
     }))
     .post('/', handleError(async (req, res) => {
         const board = await createBoard(req.body)
 
-        res.json(Board.toResponse(board))
+        res.status(200).json(board)
     }))
     .put('/:id', handleError(async (req, res) => {
         const board = await updateBoard(req.params.id, req.body)
 
-        res.json(Board.toResponse(board))
+        res.status(200).json(board)
     }))
     .delete('/:id', handleError(async (req, res) => {
         await deleteBoard(req.params.id)

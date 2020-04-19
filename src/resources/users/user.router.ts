@@ -2,7 +2,6 @@ import { Router } from 'express'
 
 import { handleError } from '../../common/logging'
 
-import { User } from './user.model'
 import {
     createUser,
     deleteUser,
@@ -15,25 +14,25 @@ export const usersRouter = Router()
     .get('/', handleError(async (req, res) => {
         const users = await getAllUsers()
 
-        res.json(users.map(User.toResponse))
+        res.status(200).json(users)
     }))
     .get('/:id', handleError(async (req, res) => {
         const user = await getUserById(req.params.id)
 
-        res.json(User.toResponse(user))
+        res.status(200).json(user)
     }))
     .post('/',handleError (async (req, res) => {
         const user = await createUser(req.body)
 
-        res.json(User.toResponse(user))
+        res.status(200).json(user)
     }))
     .put('/:id', handleError(async (req, res) => {
         const user = await updateUser(req.params.id, req.body)
 
-        res.json(User.toResponse(user))
+        res.status(200).json(user)
     }))
     .delete('/:id', handleError(async (req, res) => {
         const user = await deleteUser(req.params.id)
 
-        res.json(User.toResponse(user))
+        res.status(200).json(user)
     }))

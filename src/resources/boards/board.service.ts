@@ -8,7 +8,7 @@ import {
     getById,
     remove,
     update,
-} from './board.memory.repository'
+} from './board.db.repository'
 import { BoardData } from './board.model'
 
 export const getAllBoards = () =>

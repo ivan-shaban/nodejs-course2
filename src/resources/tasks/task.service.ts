@@ -6,14 +6,13 @@ import {
     deleteById,
     getByBoardId,
     getById,
-    getByUserId,
+    resetUserId,
     update,
-} from './task.memory.repository'
+} from './task.db.repository'
 import { TaskData } from './task.model'
 
-export const getAllTasks = async (boardId: string) => {
-    return getByBoardId(boardId)
-}
+export const getAllTasks = async (boardId: string) =>
+    getByBoardId(boardId)
 
 export const getTaskById = async (boardId: string, taskId: string) => {
     const task = await getById(boardId, taskId)
@@ -24,13 +23,11 @@ export const getTaskById = async (boardId: string, taskId: string) => {
     }
 }
 
-export const getTaskByUserId = async (userId: string) => {
-    return await getByUserId(userId)
-}
+export const resetTaskUserId = async (userId: string) =>
+    resetUserId(userId)
 
-export const createTask = async (boardId: string, taskData: TaskData) => {
-    return create(boardId, taskData)
-}
+export const createTask = async (boardId: string, taskData: TaskData) =>
+    create(boardId, taskData)
 
 export const updateTask = async (boardId: string, taskId: string, taskData: Partial<TaskData>) => {
     const result = await update(boardId, taskId, taskData)
@@ -50,6 +47,5 @@ export const deleteTaskById = async (boardId: string, taskId: string) => {
     }
 }
 
-export const deleteTaskByBoardId = async (boardId: string) => {
-    return deleteByBoardId(boardId)
-}
+export const deleteTaskByBoardId = async (boardId: string) =>
+    deleteByBoardId(boardId)
