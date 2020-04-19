@@ -1,6 +1,6 @@
 import createError from 'http-errors'
 
-import { getTaskByUserId } from '../tasks/task.service'
+import { resetTaskUserId } from '../tasks/task.service'
 
 import {
     create,
@@ -8,7 +8,7 @@ import {
     getById,
     remove,
     update,
-} from './user.memory.repository'
+} from './user.db.repository'
 import { UserData } from './user.model'
 
 export const getAllUsers = () => {
@@ -38,8 +38,7 @@ export const updateUser = async (id: string, userData: Partial<UserData>) => {
 }
 
 export const deleteUser = async (id: string) => {
-    const tasks = await getTaskByUserId(id)
-    tasks.map((task) => task.update({ userId: null }))
+    await resetTaskUserId(id)
 
     const result = await remove(id)
     if (result) {

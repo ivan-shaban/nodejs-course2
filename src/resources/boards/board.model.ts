@@ -1,33 +1,58 @@
+import {
+    Document,
+    Model,
+    model,
+    Schema,
+} from 'mongoose'
+import uuid from 'uuid/v4'
+
 export interface ColumnData {
-    readonly id: string;
     readonly title: string;
     readonly order: string;
 }
 
+const ColumnSchema = new Schema({
+    _id: {
+        type: String,
+        default: uuid,
+    },
+    title: String,
+    order: Number,
+}, { versionKey: false })
+
 export interface BoardData {
-    readonly columns: ColumnData[];
     readonly title: string;
+    readonly columns: ColumnData[];
 }
 
-export class Board implements BoardData {
-    public id: string
-    public title: string
-    public columns: ColumnData[]
-
-    constructor(id: string, data: BoardData) {
-        this.id = id
-        this.title = data.title
-        this.columns = data.columns
-    }
-
-    public update = (data: Partial<BoardData>) => {
-        for (const prop in data) {
-            // @ts-ignore
-            this[prop] = data[prop]
-        }
-    }
-
-    public static toResponse = (board: Board) => {
-        return board
-    }
+export interface BoardDocument extends Document, BoardData {
 }
+
+export interface BoardModel extends Model<BoardDocument> {
+    toResponse: (data: BoardDocument | null) => BoardData & {
+        readonly id: string;
+    };
+}
+
+const BoardSchema = new Schema({
+    _id: {
+        type: String,
+        default: uuid,
+    },
+    title: String,
+    columns: [ColumnSchema],
+}, { versionKey: false })
+
+BoardSchema.static('toResponse', (document?: BoardDocument | null) => {
+    if (!document) {
+        return document
+    }
+
+    const { _id: id, ...rest } = document.toObject()
+    return {
+        ...rest,
+        id,
+    }
+})
+
+export const Board = model<BoardDocument, BoardModel>('Board', BoardSchema)
