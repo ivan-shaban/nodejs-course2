@@ -47,8 +47,10 @@ export const errorHandlerMiddleware: ErrorRequestHandler = (err, req, res, next)
 
 export const uncaughtExceptionLisneter: NodeJS.UncaughtExceptionListener = (error) => {
     console.error('>> error:', error)
+    process.exit(1)
 }
 
-export const unhandledRejectionListener: NodeJS.UnhandledRejectionListener = (reason, promise) => {
+export const unhandledRejectionListener: NodeJS.UnhandledRejectionListener = (reason) => {
     console.error('>> error:', reason)
+    process.exit(1)
 }
