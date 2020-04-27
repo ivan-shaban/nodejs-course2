@@ -12,6 +12,9 @@ import {
     uncaughtExceptionLisneter,
     unhandledRejectionListener,
 } from './common/logging'
+import { authMiddleware } from './common/auth'
+import { Routes } from './constants/routes'
+import { loginRouter } from './resources/login/login.router'
 
 process
     .on('uncaughtException', uncaughtExceptionLisneter)
@@ -19,17 +22,20 @@ process
 
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'))
 
+// TODO: add helmet
 export const app = express()
     .use(express.json())
     .use(logger)
-    .use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
-    .use('/', (req, res, next) => {
-        if (req.originalUrl === '/') {
+    .use(authMiddleware)
+    .use(Routes.DOCS, swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+    .use(Routes.ROOT, (req, res, next) => {
+        if (req.originalUrl === Routes.ROOT) {
             res.send('Service is running!')
             return
         }
         next()
     })
-    .use('/users', usersRouter)
-    .use('/boards', boardsRouter)
+    .use(Routes.USERS, usersRouter)
+    .use(Routes.BOARDS, boardsRouter)
+    .use(Routes.LOGIN, loginRouter)
     .use(errorHandlerMiddleware)
