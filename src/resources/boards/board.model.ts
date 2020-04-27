@@ -25,13 +25,15 @@ export interface BoardData {
     readonly columns: ColumnData[];
 }
 
+export interface BoardResponseData extends BoardData {
+    readonly id: string;
+}
+
 export interface BoardDocument extends Document, BoardData {
 }
 
 export interface BoardModel extends Model<BoardDocument> {
-    toResponse: (data: BoardDocument | null) => BoardData & {
-        readonly id: string;
-    };
+    readonly toResponse: (data: BoardDocument | null) => BoardResponseData;
 }
 
 const BoardSchema = new Schema({
@@ -43,7 +45,7 @@ const BoardSchema = new Schema({
     columns: [ColumnSchema],
 }, { versionKey: false })
 
-BoardSchema.static('toResponse', (document?: BoardDocument | null) => {
+BoardSchema.static('toResponse', (document: BoardDocument | null): BoardResponseData | null => {
     if (!document) {
         return document
     }

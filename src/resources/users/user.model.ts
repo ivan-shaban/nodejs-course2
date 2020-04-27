@@ -7,6 +7,12 @@ import {
 import uuid from 'uuid/v4'
 import bcrypt from 'bcrypt'
 
+export interface UserOutputData {
+    readonly id: string;
+    readonly name: string;
+    readonly login: string;
+}
+
 export interface UserData {
     readonly name: string;
     readonly login: string;
@@ -14,15 +20,11 @@ export interface UserData {
 }
 
 export interface UserDocument extends Document, UserData {
-    isValidPassword: (password: string) => Promise<boolean>;
+    readonly isValidPassword: (password: string) => Promise<boolean>;
 }
 
 export interface UserModel extends Model<UserDocument> {
-    toResponse: (data: UserDocument | null) => {
-        readonly id: string;
-        readonly name: string;
-        readonly login: string;
-    };
+    readonly toResponse: (data: UserDocument | null) => UserOutputData;
 }
 
 const UserSchema = new Schema({
@@ -53,7 +55,7 @@ UserSchema.methods.isValidPassword = async function(password: string) {
     return await bcrypt.compare(password, this.password)
 }
 
-UserSchema.static('toResponse', (document: UserDocument | null) => {
+UserSchema.static('toResponse', (document: UserDocument | null): UserOutputData | null => {
     if (!document) {
         return document
     }

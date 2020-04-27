@@ -8,10 +8,17 @@ export const getAll = async () => {
     return users.map(User.toResponse)
 }
 
-export const getById = async (id: string) =>{
+export const getById = async (id: string) => {
     const user = await User.findById(id)
 
     return User.toResponse(user)
+}
+
+export const getByCredentials = async (login: string, password: string) => {
+    const user = await User.findOne({ login })
+    const passIsValid = user !== null && (await user.isValidPassword(password))
+
+    return passIsValid ? User.toResponse(user) : null
 }
 
 export const create = async (userData: UserData) => {

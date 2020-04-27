@@ -9,13 +9,20 @@ import {
     IStrategyOptionsWithRequest,
     Strategy as LocalStrategy,
 } from 'passport-local'
-import createError from 'http-errors'
 
 import { Routes } from '../constants/routes'
-import { User } from '../resources/users/user.model'
-import { createUser } from '../resources/users/user.service'
+import {
+    createUser,
+    getUserByCredentials,
+    getUserById,
+} from '../resources/users/user.service'
 
 import { JWT_SECRET_KEY } from './config'
+
+export interface JWTPayload {
+    readonly userId: string;
+    readonly login: string;
+}
 
 const publicRoutes = [
     Routes.ROOT,
@@ -50,13 +57,9 @@ passport.use('login', new LocalStrategy(
     async (req, login, password, done) => {
         try {
             // Find the user associated with the email provided by the user
-            const user = await User.findOne({ login })
-            if (!user || !(await user.isValidPassword(password))) {
-                done(new createError.Forbidden('Login or password incorrect.'))
-            } else {
-                // Send the user information to the next middleware
-                done(null, user, { message: 'Logged in Successfully' })
-            }
+            const user = await getUserByCredentials(login, password)
+            // Send the user information to the next middleware
+            done(null, user, { message: 'Logged in Successfully' })
         } catch (error) {
             done(error)
         }
@@ -69,19 +72,17 @@ const JWTStrategyOptions: StrategyOptions = {
 // Create a passport middleware to handle User authentication
 passport.use(new JwtStrategy(
     JWTStrategyOptions,
-    ((jwt_payload, done) => {
-        User.findOne({ id: jwt_payload.sub }, (err, user) => {
-            if (err) {
-                return done(err, false)
-            }
-            if (user) {
-                return done(null, user)
-            } else {
-                return done(null, false)
-                // or you could create a new account
-            }
-        })
-    })))
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    async ({ userId }: JWTPayload, done) => {
+        try {
+            // Find the user associated with the email provided by the user
+            const user = await getUserById(userId)
+            // Send the user information to the next middleware
+            done(null, user)
+        } catch (error) {
+            done(error)
+        }
+    }))
 
 const passportAuthenticateMiddleware = passport.authenticate('jwt', { session: false })
 

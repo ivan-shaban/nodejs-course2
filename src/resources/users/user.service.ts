@@ -5,6 +5,7 @@ import { resetTaskUserId } from '../tasks/task.service'
 import {
     create,
     getAll,
+    getByCredentials,
     getById,
     remove,
     update,
@@ -13,6 +14,15 @@ import { UserData } from './user.model'
 
 export const getAllUsers = () => {
     return getAll()
+}
+
+export const getUserByCredentials = async (login: string, password: string) => {
+    const user = await getByCredentials(login, password)
+    if (user) {
+        return user
+    } else {
+        throw new createError.Forbidden('Login or password incorrect.')
+    }
 }
 
 export const getUserById = async (id: string) => {
