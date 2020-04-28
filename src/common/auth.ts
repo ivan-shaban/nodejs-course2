@@ -87,7 +87,8 @@ passport.use(new JwtStrategy(
 const passportAuthenticateMiddleware = passport.authenticate('jwt', { session: false })
 
 export const authMiddleware: RequestHandler = (req, res, next) => {
-    if (publicRoutes.includes(req.originalUrl as Routes) || req.originalUrl.startsWith(Routes.DOCS)) {
+    const isPublicRoute = publicRoutes.some((path) => req.originalUrl.startsWith(path))
+    if (isPublicRoute) {
         next()
     } else {
         passportAuthenticateMiddleware(req, res, next)

@@ -3,6 +3,7 @@ import path from 'path'
 import express from 'express'
 import swaggerUI from 'swagger-ui-express'
 import YAML from 'yamljs'
+import helmet from 'helmet'
 
 import { usersRouter } from './resources/users/user.router'
 import { boardsRouter } from './resources/boards/board.router'
@@ -22,8 +23,8 @@ process
 
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'))
 
-// TODO: add helmet
 export const app = express()
+    .use(helmet())
     .use(express.json())
     .use(logger)
     .use(authMiddleware)
