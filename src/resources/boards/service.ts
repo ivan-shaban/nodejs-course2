@@ -18,7 +18,7 @@ import { BoardData } from './board.model'
 @injectable()
 export class BoardsService {
     @inject(TasksService)
-    private tasksService!: TasksService
+    private readonly tasksService!: TasksService
 
     public getAllBoards = () => {
         return getAll()

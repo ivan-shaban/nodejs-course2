@@ -21,7 +21,7 @@ import { BoardData } from './board.model'
 @Response('401', 'Unathorized')
 export class BoardsController extends Controller {
     @inject(BoardsService)
-    private boardsService!: BoardsService
+    private readonly boardsService!: BoardsService
 
     /**
      * Returns all boards

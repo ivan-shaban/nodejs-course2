@@ -21,7 +21,7 @@ import { TaskData } from './task.model'
 @Response('401', 'Unathorized')
 export class TasksController extends Controller {
     @inject(TasksService)
-    private tasksService!: TasksService
+    private readonly tasksService!: TasksService
 
     /**
      * Gets tasks by the Board ID

@@ -21,10 +21,10 @@ export interface LoginBody {
 @Tags('Login')
 export class LoginController extends Controller {
     @inject(LoginService)
-    private loginService!: LoginService
+    private readonly loginService!: LoginService
 
     @inject(UsersService)
-    private usersService!: UsersService
+    private readonly usersService!: UsersService
 
     /**
      * Login a user and returns a JWT-token

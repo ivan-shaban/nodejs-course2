@@ -21,7 +21,7 @@ import { UserData } from './user.model'
 @Response('401', 'Unathorized')
 export class UsersController extends Controller {
     @inject(UsersService)
-    private usersService!: UsersService
+    private readonly usersService!: UsersService
 
     /**
      * Gets all users (remove password from response)

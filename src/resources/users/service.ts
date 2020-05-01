@@ -19,7 +19,7 @@ import { UserData } from './user.model'
 @injectable()
 export class UsersService {
     @inject(TasksService)
-    private tasksService!: TasksService
+    private readonly tasksService!: TasksService
 
     public getAllUsers = () => {
         return getAll()
