@@ -32,7 +32,7 @@ export const errorHandlerMiddleware: ErrorRequestHandler = (err, req, res, next)
         ? `ValidateError: ${err.fields}`
         : err.message
 
-    console.error(`>> error: ${status}: ${message}`, err)
+    console.error(`>> error: ${status}: ${message}`)
 
     res
         .status(status)
