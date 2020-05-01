@@ -8,7 +8,7 @@ import uuid from 'uuid/v4'
 
 export interface ColumnData {
     readonly title: string;
-    readonly order: string;
+    readonly order: number;
 }
 
 const ColumnSchema = new Schema({

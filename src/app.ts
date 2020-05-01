@@ -1,33 +1,24 @@
-import path from 'path'
-
 import express from 'express'
 import swaggerUI from 'swagger-ui-express'
-import YAML from 'yamljs'
-import helmet from 'helmet'
 
-import { usersRouter } from './resources/users/user.router'
-import { boardsRouter } from './resources/boards/board.router'
+import swaggerDocument from '../doc/swagger.json'
+
 import {
     errorHandlerMiddleware,
     logger,
     uncaughtExceptionLisneter,
     unhandledRejectionListener,
 } from './common/logging'
-import { authMiddleware } from './common/auth'
 import { Routes } from './constants/routes'
-import { loginRouter } from './resources/login/login.router'
+import { RegisterRoutes } from './router/routes'
 
 process
     .on('uncaughtException', uncaughtExceptionLisneter)
     .on('unhandledRejection', unhandledRejectionListener)
 
-const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'))
-
 export const app = express()
-    .use(helmet())
     .use(express.json())
     .use(logger)
-    .use(authMiddleware)
     .use(Routes.DOCS, swaggerUI.serve, swaggerUI.setup(swaggerDocument))
     .use(Routes.ROOT, (req, res, next) => {
         if (req.originalUrl === Routes.ROOT) {
@@ -36,7 +27,7 @@ export const app = express()
         }
         next()
     })
-    .use(Routes.USERS, usersRouter)
-    .use(Routes.BOARDS, boardsRouter)
-    .use(Routes.LOGIN, loginRouter)
-    .use(errorHandlerMiddleware)
+
+RegisterRoutes(app)
+
+app.use(errorHandlerMiddleware)

@@ -8,14 +8,14 @@ import uuid from 'uuid/v4'
 
 export interface TaskData {
     readonly   title: string;
-    readonly   order: string;
+    readonly   order: number;
     readonly   description: string;
     /**
      * assignee
      */
-    readonly   userId: string | null;
-    readonly   boardId: string;
-    readonly   columnId: string;
+    readonly   userId?: string;
+    readonly   boardId?: string;
+    readonly   columnId?: string;
 }
 
 export interface TaskResponseData extends TaskData {

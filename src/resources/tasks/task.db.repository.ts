@@ -36,7 +36,7 @@ export const update = async (boardId: string, taskId: string, taskData: Partial<
 }
 
 export const resetUserId = async (userId: string) => {
-    const { ok } = await Task.updateMany({ userId }, { userId: null })
+    const { ok } = await Task.updateMany({ userId }, { userId: undefined })
 
     return !!ok
 }

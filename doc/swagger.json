@@ -1,0 +1,785 @@
+{
+	"basePath": "/",
+	"consumes": [
+		"application/json"
+	],
+	"definitions": {
+		"UserOutputData": {
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"login": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"id",
+				"name",
+				"login"
+			],
+			"type": "object",
+			"additionalProperties": false
+		},
+		"UserData": {
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"login": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"name",
+				"login",
+				"password"
+			],
+			"type": "object",
+			"additionalProperties": false
+		},
+		"TaskResponseData": {
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"order": {
+					"type": "number",
+					"format": "double"
+				},
+				"description": {
+					"type": "string"
+				},
+				"userId": {
+					"type": "string",
+					"description": "assignee",
+					"x-nullable": true
+				},
+				"boardId": {
+					"type": "string",
+					"x-nullable": true
+				},
+				"columnId": {
+					"type": "string",
+					"x-nullable": true
+				},
+				"id": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"title",
+				"order",
+				"description",
+				"id"
+			],
+			"type": "object",
+			"additionalProperties": false
+		},
+		"TaskData": {
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"order": {
+					"type": "number",
+					"format": "double"
+				},
+				"description": {
+					"type": "string"
+				},
+				"userId": {
+					"type": "string",
+					"description": "assignee",
+					"x-nullable": true
+				},
+				"boardId": {
+					"type": "string",
+					"x-nullable": true
+				},
+				"columnId": {
+					"type": "string",
+					"x-nullable": true
+				}
+			},
+			"required": [
+				"title",
+				"order",
+				"description"
+			],
+			"type": "object",
+			"additionalProperties": false
+		},
+		"LoginBody": {
+			"properties": {
+				"login": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"login",
+				"password"
+			],
+			"type": "object",
+			"additionalProperties": false
+		},
+		"ColumnData": {
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"order": {
+					"type": "number",
+					"format": "double"
+				}
+			},
+			"required": [
+				"title",
+				"order"
+			],
+			"type": "object",
+			"additionalProperties": false
+		},
+		"BoardResponseData": {
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"columns": {
+					"items": {
+						"$ref": "#/definitions/ColumnData"
+					},
+					"type": "array"
+				},
+				"id": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"title",
+				"columns",
+				"id"
+			],
+			"type": "object",
+			"additionalProperties": false
+		},
+		"BoardData": {
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"columns": {
+					"items": {
+						"$ref": "#/definitions/ColumnData"
+					},
+					"type": "array"
+				}
+			},
+			"required": [
+				"title",
+				"columns"
+			],
+			"type": "object",
+			"additionalProperties": false
+		}
+	},
+	"info": {
+		"title": "rs-rest-service-starter",
+		"version": "1.0.0",
+		"description": "REST service starter for RS School",
+		"license": {
+			"name": "ISC"
+		}
+	},
+	"paths": {
+		"/users": {
+			"get": {
+				"operationId": "GetAllUsers",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"items": {
+								"$ref": "#/definitions/UserOutputData"
+							},
+							"type": "array"
+						}
+					}
+				},
+				"description": "Gets all users (remove password from response)",
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateUser",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/UserOutputData"
+						}
+					}
+				},
+				"description": "Creates a new user (remove password from response)",
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/UserData"
+						}
+					}
+				]
+			}
+		},
+		"/users/{id}": {
+			"get": {
+				"operationId": "GetUserById",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/UserOutputData"
+						}
+					}
+				},
+				"description": "Gets a user by ID\r\n\r\ne.g. “/users/123” (remove password from response)",
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateUser",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/UserOutputData"
+						}
+					}
+				},
+				"description": "Updates a user by ID",
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/UserData"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteUser",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/UserOutputData"
+						}
+					}
+				},
+				"description": "Deletes user by ID.\r\n\r\nWhen somebody DELETE User, all Tasks where User is assignee should be\r\nupdated to put userId=null",
+				"tags": [
+					"Users"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/boards/{boardId}/tasks": {
+			"get": {
+				"operationId": "GetAllTasks",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"items": {
+								"$ref": "#/definitions/TaskResponseData"
+							},
+							"type": "array"
+						}
+					}
+				},
+				"description": "Gets tasks by the Board ID\r\n(e.g. “/board/1/tasks”)",
+				"tags": [
+					"Tasks"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "boardId",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateTask",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/TaskResponseData"
+						}
+					}
+				},
+				"description": "Creates a new task",
+				"tags": [
+					"Tasks"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "boardId",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/TaskData"
+						}
+					}
+				]
+			}
+		},
+		"/boards/{boardId}/tasks/{id}": {
+			"get": {
+				"operationId": "GetTaskById",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/TaskResponseData"
+						}
+					}
+				},
+				"description": "Gets the Task by the Board's and task ID\r\n(e.g. “/board/1/tasks/123”)",
+				"tags": [
+					"Tasks"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "boardId",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateTask",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/TaskResponseData"
+						}
+					}
+				},
+				"description": "Updates the Task by ID",
+				"tags": [
+					"Tasks"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "boardId",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/TaskData"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteTaskById",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/TaskResponseData"
+						}
+					}
+				},
+				"description": "Deletes Task by ID.",
+				"tags": [
+					"Tasks"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "boardId",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		},
+		"/login": {
+			"post": {
+				"operationId": "Login",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"properties": {
+								"token": {
+									"additionalProperties": true,
+									"type": "object"
+								}
+							},
+							"required": [
+								"token"
+							],
+							"type": "object"
+						}
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"description": "Login a user and returns a JWT-token",
+				"tags": [
+					"Login"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/LoginBody"
+						}
+					}
+				]
+			}
+		},
+		"/boards": {
+			"get": {
+				"operationId": "GetAllBoards",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"items": {
+								"$ref": "#/definitions/BoardResponseData"
+							},
+							"type": "array"
+						}
+					}
+				},
+				"description": "Returns all boards",
+				"tags": [
+					"Boards"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateBoard",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/BoardResponseData"
+						}
+					}
+				},
+				"description": "Creates a new board",
+				"tags": [
+					"Boards"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/BoardData"
+						}
+					}
+				]
+			}
+		},
+		"/boards/{id}": {
+			"get": {
+				"operationId": "GetBoardById",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/BoardResponseData"
+						}
+					}
+				},
+				"description": "Gets the Board by ID (e.g. “/boards/123”)",
+				"tags": [
+					"Boards"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateBoard",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/BoardResponseData"
+						}
+					}
+				},
+				"description": "Updates a Board by ID",
+				"tags": [
+					"Boards"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/BoardData"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteBoard",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/BoardResponseData"
+						}
+					}
+				},
+				"description": "Deletes a Board by ID.\r\n\r\nWhen somebody DELETE Board,\r\nall its Tasks should be deleted as well",
+				"tags": [
+					"Boards"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {
+		"jwt": {
+			"in": "header",
+			"name": "Authorization",
+			"type": "apiKey"
+		}
+	}
+}

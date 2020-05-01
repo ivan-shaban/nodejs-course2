@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { PORT } from './common/config'
 import { app } from './app'
 import { initializeMongoDB } from './db/client'

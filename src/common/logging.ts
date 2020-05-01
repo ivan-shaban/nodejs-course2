@@ -26,17 +26,13 @@ export const logger: RequestHandler = (req, res, next) => {
     next()
 }
 
-export const handleAsyncError = (func: (req: Request, res: Response, next: NextFunction) => Promise<any>): RequestHandler =>
-    (req, res, next) => {
-        func(req, res, next)
-            .catch(next)
-    }
-
 export const errorHandlerMiddleware: ErrorRequestHandler = (err, req, res, next) => {
     const status = err.status || 500
-    const message = err.message
+    const message = err.name === 'ValidateError'
+        ? `ValidateError: ${err.fields}`
+        : err.message
 
-    console.error(`>> Code ${status}: ${message}`)
+    console.error(`>> error: ${status}: ${message}`, err)
 
     res
         .status(status)
