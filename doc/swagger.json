@@ -134,6 +134,10 @@
 		},
 		"ColumnData": {
 			"properties": {
+				"_id": {
+					"type": "string",
+					"x-nullable": true
+				},
 				"title": {
 					"type": "string"
 				},

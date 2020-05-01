@@ -7,6 +7,7 @@ import {
 import uuid from 'uuid/v4'
 
 export interface ColumnData {
+    readonly _id?: string;
     readonly title: string;
     readonly order: number;
 }

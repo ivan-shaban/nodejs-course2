@@ -76,6 +76,7 @@ const models: TsoaRoute.Models = {
     "ColumnData": {
         "dataType": "refObject",
         "properties": {
+            "_id": { "dataType": "string" },
             "title": { "dataType": "string", "required": true },
             "order": { "dataType": "double", "required": true },
         },
