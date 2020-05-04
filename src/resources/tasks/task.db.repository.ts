@@ -1,16 +1,17 @@
 import {
     Task,
     TaskData,
-} from './task.model'
+    TaskModel,
+} from './model'
 
 export const getAll = async () => {
-    const tasks = await Task.find()
+    const tasks = await TaskModel.find()
 
     return tasks.map(Task.toDTO)
 }
 
 export const getByBoardId = async (boardId: string) => {
-    const tasks = await Task.find({ boardId })
+    const tasks = await TaskModel.find({ boardId })
 
     return tasks.map(Task.toDTO)
 }
@@ -21,7 +22,7 @@ export const getById = async (boardId: string, taskId: string) => {
 }
 
 export const create = async (boardId: string, taskData: TaskData) => {
-    const task = await Task.create({
+    const task = await TaskModel.create({
         ...taskData,
         boardId,
     })
@@ -30,25 +31,25 @@ export const create = async (boardId: string, taskData: TaskData) => {
 }
 
 export const update = async (boardId: string, taskId: string, taskData: Partial<TaskData>) => {
-    const task = await Task.findOneAndUpdate({ _id: taskId, boardId }, taskData)
+    const task = await TaskModel.findOneAndUpdate({ _id: taskId, boardId }, taskData)
 
-    return Task.toDTO(task)
+    return task && Task.toDTO(task)
 }
 
 export const resetUserId = async (userId: string) => {
-    const { ok } = await Task.updateMany({ userId }, { userId: undefined })
+    const { ok } = await TaskModel.updateMany({ userId }, { userId: undefined })
 
     return !!ok
 }
 
 export const deleteById = async (boardId: string, taskId: string) => {
-    const task = await Task.findOneAndDelete({ _id: taskId, boardId })
+    const task = await TaskModel.findOneAndDelete({ _id: taskId, boardId })
 
-    return Task.toDTO(task)
+    return task && Task.toDTO(task)
 }
 
 export const deleteByBoardId = async (boardId: string) => {
-    const { ok } = await Task.deleteMany({ boardId })
+    const { ok } = await TaskModel.deleteMany({ boardId })
 
     return !!ok
 }

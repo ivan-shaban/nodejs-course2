@@ -13,7 +13,7 @@ import {
 import { inject } from 'inversify'
 
 import { BoardsService } from './service'
-import { BoardData } from './board.model'
+import { BoardData } from './model'
 
 @Route('boards')
 @Tags('Boards')

@@ -13,7 +13,7 @@ import {
     remove,
     update,
 } from './board.db.repository'
-import { BoardData } from './board.model'
+import { BoardData } from './model'
 
 @injectable()
 export class BoardsService {
@@ -56,5 +56,4 @@ export class BoardsService {
             throw new createError.NotFound(`No board with id: "${id}" found`)
         }
     }
-
 }

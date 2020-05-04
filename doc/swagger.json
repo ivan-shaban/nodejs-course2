@@ -4,7 +4,7 @@
 		"application/json"
 	],
 	"definitions": {
-		"UserOutputData": {
+		"UserDTO": {
 			"properties": {
 				"id": {
 					"type": "string"
@@ -44,7 +44,7 @@
 			"type": "object",
 			"additionalProperties": false
 		},
-		"TaskResponseData": {
+		"TaskDTO": {
 			"properties": {
 				"title": {
 					"type": "string"
@@ -153,7 +153,7 @@
 			"type": "object",
 			"additionalProperties": false
 		},
-		"BoardResponseData": {
+		"BoardDTO": {
 			"properties": {
 				"title": {
 					"type": "string"
@@ -216,7 +216,7 @@
 						"description": "Ok",
 						"schema": {
 							"items": {
-								"$ref": "#/definitions/UserOutputData"
+								"$ref": "#/definitions/UserDTO"
 							},
 							"type": "array"
 						}
@@ -242,7 +242,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/UserOutputData"
+							"$ref": "#/definitions/UserDTO"
 						}
 					}
 				},
@@ -277,7 +277,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/UserOutputData"
+							"$ref": "#/definitions/UserDTO"
 						}
 					}
 				},
@@ -308,7 +308,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/UserOutputData"
+							"$ref": "#/definitions/UserDTO"
 						}
 					}
 				},
@@ -347,7 +347,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/UserOutputData"
+							"$ref": "#/definitions/UserDTO"
 						}
 					}
 				},
@@ -381,7 +381,7 @@
 						"description": "Ok",
 						"schema": {
 							"items": {
-								"$ref": "#/definitions/TaskResponseData"
+								"$ref": "#/definitions/TaskDTO"
 							},
 							"type": "array"
 						}
@@ -414,7 +414,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/TaskResponseData"
+							"$ref": "#/definitions/TaskDTO"
 						}
 					}
 				},
@@ -455,7 +455,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/TaskResponseData"
+							"$ref": "#/definitions/TaskDTO"
 						}
 					}
 				},
@@ -492,7 +492,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/TaskResponseData"
+							"$ref": "#/definitions/TaskDTO"
 						}
 					}
 				},
@@ -537,7 +537,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/TaskResponseData"
+							"$ref": "#/definitions/TaskDTO"
 						}
 					}
 				},
@@ -620,7 +620,7 @@
 						"description": "Ok",
 						"schema": {
 							"items": {
-								"$ref": "#/definitions/BoardResponseData"
+								"$ref": "#/definitions/BoardDTO"
 							},
 							"type": "array"
 						}
@@ -646,7 +646,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/BoardResponseData"
+							"$ref": "#/definitions/BoardDTO"
 						}
 					}
 				},
@@ -681,7 +681,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/BoardResponseData"
+							"$ref": "#/definitions/BoardDTO"
 						}
 					}
 				},
@@ -712,7 +712,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/BoardResponseData"
+							"$ref": "#/definitions/BoardDTO"
 						}
 					}
 				},
@@ -751,7 +751,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/BoardResponseData"
+							"$ref": "#/definitions/BoardDTO"
 						}
 					}
 				},

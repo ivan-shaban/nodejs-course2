@@ -13,7 +13,7 @@ import {
 import { inject } from 'inversify'
 
 import { TasksService } from './service'
-import { TaskData } from './task.model'
+import { TaskData } from './model'
 
 @Route('boards')
 @Tags('Tasks')
@@ -46,7 +46,6 @@ export class TasksController extends Controller {
      */
     @Get('{boardId}/tasks/{id}')
     getTaskById(boardId: string, id: string) {
-    // getTaskById(@Path('boardId') boardId: string, id: string) {
         return this.tasksService.getTaskById(boardId, id)
     }
 

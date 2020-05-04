@@ -10,7 +10,7 @@ import {
     resetUserId,
     update,
 } from './task.db.repository'
-import { TaskData } from './task.model'
+import { TaskData } from './model'
 
 @injectable()
 export class TasksService {

@@ -1,34 +1,35 @@
 import {
     Board,
     BoardData,
-} from './board.model'
+    BoardModel,
+} from './model'
 
 export const getAll = async () =>{
-    const boards = await Board.find()
+    const boards = await BoardModel.find()
 
     return boards.map(Board.toDTO)
 }
 
 export const getById = async (id: string) => {
-    const board = await Board.findById(id)
+    const board = await BoardModel.findById(id)
 
-    return Board.toDTO(board)
+    return board && Board.toDTO(board)
 }
 
 export const create = async (boardData: BoardData) => {
-    const board = await Board.create(boardData)
+    const board = await BoardModel.create(boardData)
 
     return Board.toDTO(board)
 }
 
 export const update = async (id: string, boardData: Partial<BoardData>) => {
-    const board = await Board.findByIdAndUpdate(id, boardData)
+    const board = await BoardModel.findByIdAndUpdate(id, boardData)
 
-    return Board.toDTO(board)
+    return board && Board.toDTO(board)
 }
 
 export const remove = async (id: string) => {
-    const board = await Board.findByIdAndDelete(id)
+    const board = await BoardModel.findByIdAndDelete(id)
 
-    return Board.toDTO(board)
+    return board && Board.toDTO(board)
 }

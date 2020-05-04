@@ -14,7 +14,7 @@ import {
     remove,
     update,
 } from './user.db.repository'
-import { UserData } from './user.model'
+import { UserData } from './model'
 
 @injectable()
 export class UsersService {

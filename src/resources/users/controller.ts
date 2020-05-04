@@ -13,7 +13,7 @@ import {
 import { inject } from 'inversify'
 
 import { UsersService } from './service'
-import { UserData } from './user.model'
+import { UserData } from './model'
 
 @Route('users')
 @Tags('Users')
