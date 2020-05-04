@@ -18,7 +18,7 @@ export interface TaskData {
     readonly   columnId?: string;
 }
 
-export interface TaskResponseData extends TaskData {
+export interface TaskDTO extends TaskData {
     readonly id: string;
 }
 
@@ -26,7 +26,7 @@ export interface TaskDocument extends Document, TaskData {
 }
 
 export interface TaskModel extends Model<TaskDocument> {
-    readonly toResponse: (data: TaskDocument | null) => TaskResponseData;
+    readonly toDTO: (data: TaskDocument | null) => TaskDTO;
 }
 
 const TaskSchema = new Schema({
@@ -42,7 +42,7 @@ const TaskSchema = new Schema({
     },
 }, { versionKey: false })
 
-TaskSchema.static('toResponse', (document: TaskDocument | null): TaskResponseData | null => {
+TaskSchema.static('toDTO', (document: TaskDocument | null): TaskDTO | null => {
     if (!document) {
         return document
     }

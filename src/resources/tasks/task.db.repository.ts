@@ -6,13 +6,13 @@ import {
 export const getAll = async () => {
     const tasks = await Task.find()
 
-    return tasks.map(Task.toResponse)
+    return tasks.map(Task.toDTO)
 }
 
 export const getByBoardId = async (boardId: string) => {
     const tasks = await Task.find({ boardId })
 
-    return tasks.map(Task.toResponse)
+    return tasks.map(Task.toDTO)
 }
 
 export const getById = async (boardId: string, taskId: string) => {
@@ -26,13 +26,13 @@ export const create = async (boardId: string, taskData: TaskData) => {
         boardId,
     })
 
-    return Task.toResponse(task)
+    return Task.toDTO(task)
 }
 
 export const update = async (boardId: string, taskId: string, taskData: Partial<TaskData>) => {
     const task = await Task.findOneAndUpdate({ _id: taskId, boardId }, taskData)
 
-    return Task.toResponse(task)
+    return Task.toDTO(task)
 }
 
 export const resetUserId = async (userId: string) => {
@@ -44,7 +44,7 @@ export const resetUserId = async (userId: string) => {
 export const deleteById = async (boardId: string, taskId: string) => {
     const task = await Task.findOneAndDelete({ _id: taskId, boardId })
 
-    return Task.toResponse(task)
+    return Task.toDTO(task)
 }
 
 export const deleteByBoardId = async (boardId: string) => {
