@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Example,
     Post,
     Response,
     Route,
@@ -29,7 +30,11 @@ export class LoginController extends Controller {
     /**
      * Login a user and returns a JWT-token
      */
-    @Response('403', 'Forbidden')
+    @Example<LoginBody>({
+        login: 'admin',
+        password: 'admin',
+    })
+    @Response('403', 'Forbidden, login or password incorrect')
     @Post()
     async login(@Body() data: LoginBody) {
         const { id } = await this.usersService.getUserByCredentials(data.login, data.password)

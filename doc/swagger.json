@@ -279,6 +279,9 @@
 						"schema": {
 							"$ref": "#/definitions/UserDTO"
 						}
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Gets a user by ID\r\n\r\ne.g. “/users/123” (remove password from response)",
@@ -310,6 +313,9 @@
 						"schema": {
 							"$ref": "#/definitions/UserDTO"
 						}
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Updates a user by ID",
@@ -349,6 +355,9 @@
 						"schema": {
 							"$ref": "#/definitions/UserDTO"
 						}
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Deletes user by ID.\r\n\r\nWhen somebody DELETE User, all Tasks where User is assignee should be\r\nupdated to put userId=null",
@@ -457,6 +466,9 @@
 						"schema": {
 							"$ref": "#/definitions/TaskDTO"
 						}
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Gets the Task by the Board's and task ID\r\n(e.g. “/board/1/tasks/123”)",
@@ -494,6 +506,9 @@
 						"schema": {
 							"$ref": "#/definitions/TaskDTO"
 						}
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Updates the Task by ID",
@@ -539,6 +554,9 @@
 						"schema": {
 							"$ref": "#/definitions/TaskDTO"
 						}
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Deletes Task by ID.",
@@ -586,10 +604,16 @@
 								"token"
 							],
 							"type": "object"
+						},
+						"examples": {
+							"application/json": {
+								"login": "admin",
+								"password": "admin"
+							}
 						}
 					},
 					"403": {
-						"description": "Forbidden"
+						"description": "Forbidden, login or password incorrect"
 					}
 				},
 				"description": "Login a user and returns a JWT-token",
@@ -683,6 +707,9 @@
 						"schema": {
 							"$ref": "#/definitions/BoardDTO"
 						}
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Gets the Board by ID (e.g. “/boards/123”)",
@@ -714,6 +741,9 @@
 						"schema": {
 							"$ref": "#/definitions/BoardDTO"
 						}
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Updates a Board by ID",
@@ -753,6 +783,9 @@
 						"schema": {
 							"$ref": "#/definitions/BoardDTO"
 						}
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Deletes a Board by ID.\r\n\r\nWhen somebody DELETE Board,\r\nall its Tasks should be deleted as well",

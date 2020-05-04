@@ -18,7 +18,7 @@ import { BoardData } from './model'
 @Route('boards')
 @Tags('Boards')
 @Security('jwt')
-@Response('401', 'Unathorized')
+@Response('401', 'You need to authorized to work with that method')
 export class BoardsController extends Controller {
     @inject(BoardsService)
     private readonly boardsService!: BoardsService
@@ -43,6 +43,7 @@ export class BoardsController extends Controller {
      * Gets the Board by ID (e.g. “/boards/123”)
      */
     @Get('{id}')
+    @Response('404', 'NotFound')
     getBoardById(id: string) {
         return this.boardsService.getBoardById(id)
     }
@@ -51,6 +52,7 @@ export class BoardsController extends Controller {
      * Updates a Board by ID
      */
     @Put('{id}')
+    @Response('404', 'NotFound')
     updateBoard(id: string, @Body() data: BoardData) {
         return this.boardsService.updateBoard(id, data)
     }
@@ -62,6 +64,7 @@ export class BoardsController extends Controller {
      * all its Tasks should be deleted as well
      */
     @Delete('{id}')
+    @Response('404', 'NotFound')
     deleteBoard(id: string) {
         return this.boardsService.deleteBoard(id)
     }
