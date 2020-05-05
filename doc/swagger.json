@@ -58,16 +58,13 @@
 				},
 				"userId": {
 					"type": "string",
-					"description": "assignee",
-					"x-nullable": true
+					"description": "assignee"
 				},
 				"boardId": {
-					"type": "string",
-					"x-nullable": true
+					"type": "string"
 				},
 				"columnId": {
-					"type": "string",
-					"x-nullable": true
+					"type": "string"
 				},
 				"id": {
 					"type": "string"
@@ -96,16 +93,13 @@
 				},
 				"userId": {
 					"type": "string",
-					"description": "assignee",
-					"x-nullable": true
+					"description": "assignee"
 				},
 				"boardId": {
-					"type": "string",
-					"x-nullable": true
+					"type": "string"
 				},
 				"columnId": {
-					"type": "string",
-					"x-nullable": true
+					"type": "string"
 				}
 			},
 			"required": [
@@ -135,8 +129,7 @@
 		"ColumnData": {
 			"properties": {
 				"_id": {
-					"type": "string",
-					"x-nullable": true
+					"type": "string"
 				},
 				"title": {
 					"type": "string"
@@ -596,8 +589,7 @@
 						"schema": {
 							"properties": {
 								"token": {
-									"additionalProperties": true,
-									"type": "object"
+									"additionalProperties": true
 								}
 							},
 							"required": [

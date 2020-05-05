@@ -15,7 +15,7 @@
     "check:types": "tsc",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.(j|t)s\" --noStackTrace",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
-    "tsoa:gen": "tsoa routes && tsoa swagger"
+    "tsoa:gen": "tsoa spec-and-routes"
   },
   "keywords": [
     "rs",
@@ -53,7 +53,7 @@
     "mongoose": "^5.9.11",
     "reflect-metadata": "^0.1.13",
     "swagger-ui-express": "4.1.4",
-    "tsoa": "^2.5.14",
+    "tsoa": "^3.0.8",
     "uuid": "3.3.3"
   },
   "devDependencies": {
