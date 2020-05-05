@@ -213,6 +213,9 @@
 							},
 							"type": "array"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					}
 				},
 				"description": "Gets all users (remove password from response)",
@@ -237,6 +240,9 @@
 						"schema": {
 							"$ref": "#/definitions/UserDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					}
 				},
 				"description": "Creates a new user (remove password from response)",
@@ -273,6 +279,9 @@
 							"$ref": "#/definitions/UserDTO"
 						}
 					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
 					"404": {
 						"description": "NotFound"
 					}
@@ -306,6 +315,9 @@
 						"schema": {
 							"$ref": "#/definitions/UserDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					},
 					"404": {
 						"description": "NotFound"
@@ -349,6 +361,9 @@
 							"$ref": "#/definitions/UserDTO"
 						}
 					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
 					"404": {
 						"description": "NotFound"
 					}
@@ -387,6 +402,9 @@
 							},
 							"type": "array"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					}
 				},
 				"description": "Gets tasks by the Board ID\r\n(e.g. “/board/1/tasks”)",
@@ -418,6 +436,9 @@
 						"schema": {
 							"$ref": "#/definitions/TaskDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					}
 				},
 				"description": "Creates a new task",
@@ -460,6 +481,9 @@
 							"$ref": "#/definitions/TaskDTO"
 						}
 					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
 					"404": {
 						"description": "NotFound"
 					}
@@ -499,6 +523,9 @@
 						"schema": {
 							"$ref": "#/definitions/TaskDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					},
 					"404": {
 						"description": "NotFound"
@@ -547,6 +574,9 @@
 						"schema": {
 							"$ref": "#/definitions/TaskDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					},
 					"404": {
 						"description": "NotFound"
@@ -640,6 +670,9 @@
 							},
 							"type": "array"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					}
 				},
 				"description": "Returns all boards",
@@ -664,6 +697,9 @@
 						"schema": {
 							"$ref": "#/definitions/BoardDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					}
 				},
 				"description": "Creates a new board",
@@ -700,6 +736,9 @@
 							"$ref": "#/definitions/BoardDTO"
 						}
 					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
 					"404": {
 						"description": "NotFound"
 					}
@@ -733,6 +772,9 @@
 						"schema": {
 							"$ref": "#/definitions/BoardDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					},
 					"404": {
 						"description": "NotFound"
@@ -775,6 +817,9 @@
 						"schema": {
 							"$ref": "#/definitions/BoardDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					},
 					"404": {
 						"description": "NotFound"

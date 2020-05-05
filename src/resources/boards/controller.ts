@@ -18,7 +18,7 @@ import { BoardData } from './model'
 @Route('boards')
 @Tags('Boards')
 @Security('jwt')
-@Response('401', 'You need to authorized to work with that method')
+@Response('401', 'You need to be authorized to work with that method')
 export class BoardsController extends Controller {
     @inject(BoardsService)
     private readonly boardsService!: BoardsService

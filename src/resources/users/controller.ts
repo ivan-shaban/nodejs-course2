@@ -18,7 +18,7 @@ import { UserData } from './model'
 @Route('users')
 @Tags('Users')
 @Security('jwt')
-@Response('401', 'You need to authorized to work with that method')
+@Response('401', 'You need to be authorized to work with that method')
 export class UsersController extends Controller {
     @inject(UsersService)
     private readonly usersService!: UsersService

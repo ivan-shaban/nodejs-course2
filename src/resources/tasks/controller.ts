@@ -18,7 +18,7 @@ import { TaskData } from './model'
 @Route('boards')
 @Tags('Tasks')
 @Security('jwt')
-@Response('401', 'You need to authorized to work with that method')
+@Response('401', 'You need to be authorized to work with that method')
 export class TasksController extends Controller {
     @inject(TasksService)
     private readonly tasksService!: TasksService
