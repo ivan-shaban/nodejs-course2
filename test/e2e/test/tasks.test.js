@@ -9,9 +9,6 @@ const TEST_TASK_DATA = {
   title: 'Autotest task',
   order: 0,
   description: 'Lorem ipsum',
-  userId: null,
-  boardId: null,
-  columnId: null
 };
 
 const TEST_BOARD_DATA = {

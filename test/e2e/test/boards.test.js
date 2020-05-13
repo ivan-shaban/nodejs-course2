@@ -171,8 +171,6 @@ describe('Boards suite', () => {
               order: idx + 1,
               description: 'Lorem ipsum',
               boardId,
-              userId: null,
-              columnId: null
             })
             .set('Accept', 'application/json')
             .expect(200)
