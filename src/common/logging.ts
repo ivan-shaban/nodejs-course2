@@ -26,7 +26,7 @@ export const logger: RequestHandler = (req, res, next) => {
     next()
 }
 
-export const handleError = (func: (req: Request, res: Response, next: NextFunction) => Promise<any>): RequestHandler =>
+export const handleAsyncError = (func: (req: Request, res: Response, next: NextFunction) => Promise<any>): RequestHandler =>
     (req, res, next) => {
         func(req, res, next)
             .catch(next)

@@ -18,13 +18,15 @@ export interface TaskData {
     readonly   columnId: string;
 }
 
+export interface TaskResponseData extends TaskData {
+    readonly id: string;
+}
+
 export interface TaskDocument extends Document, TaskData {
 }
 
 export interface TaskModel extends Model<TaskDocument> {
-    toResponse: (data: TaskDocument | null) => TaskData & {
-        readonly id: string;
-    };
+    readonly toResponse: (data: TaskDocument | null) => TaskResponseData;
 }
 
 const TaskSchema = new Schema({
@@ -40,7 +42,7 @@ const TaskSchema = new Schema({
     },
 }, { versionKey: false })
 
-TaskSchema.static('toResponse', (document: TaskDocument | null) => {
+TaskSchema.static('toResponse', (document: TaskDocument | null): TaskResponseData | null => {
     if (!document) {
         return document
     }

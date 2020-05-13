@@ -1,20 +1,18 @@
-import { connect, connection } from 'mongoose'
+import {
+    connect,
+    connection,
+} from 'mongoose'
 
 import { MONGO_CONNECTION_STRING } from '../common/config'
-// uncomment below to get test data
-// import { User } from '../resources/users/user.model'
-//
-// const addMockData = async () => {
-//     const usersPromises = []
-//     for (let i = 0; i < 10; i++) {
-//         usersPromises.push(User.create({
-//             name: `USER-${i}`,
-//             login: `USER-${i}`,
-//             password: 'test',
-//         }))
-//     }
-//     await Promise.all(usersPromises)
-// }
+import { User } from '../resources/users/user.model'
+
+const addMockData = async () => {
+    await User.create({
+        name: 'admin',
+        login: 'admin',
+        password: 'admin',
+    })
+}
 
 export const initializeMongoDB = (callback: Function) => {
     connection.on('error', console.error.bind(console, 'connection error:'))
@@ -24,7 +22,7 @@ export const initializeMongoDB = (callback: Function) => {
 
         // initial cleanup
         await connection.dropDatabase()
-        // await addMockData()
+        await addMockData()
 
         callback()
     })
