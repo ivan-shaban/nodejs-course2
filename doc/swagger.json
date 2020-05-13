@@ -4,7 +4,7 @@
 		"application/json"
 	],
 	"definitions": {
-		"UserOutputData": {
+		"UserDTO": {
 			"properties": {
 				"id": {
 					"type": "string"
@@ -44,7 +44,7 @@
 			"type": "object",
 			"additionalProperties": false
 		},
-		"TaskResponseData": {
+		"TaskDTO": {
 			"properties": {
 				"title": {
 					"type": "string"
@@ -58,16 +58,13 @@
 				},
 				"userId": {
 					"type": "string",
-					"description": "assignee",
-					"x-nullable": true
+					"description": "assignee"
 				},
 				"boardId": {
-					"type": "string",
-					"x-nullable": true
+					"type": "string"
 				},
 				"columnId": {
-					"type": "string",
-					"x-nullable": true
+					"type": "string"
 				},
 				"id": {
 					"type": "string"
@@ -96,16 +93,13 @@
 				},
 				"userId": {
 					"type": "string",
-					"description": "assignee",
-					"x-nullable": true
+					"description": "assignee"
 				},
 				"boardId": {
-					"type": "string",
-					"x-nullable": true
+					"type": "string"
 				},
 				"columnId": {
-					"type": "string",
-					"x-nullable": true
+					"type": "string"
 				}
 			},
 			"required": [
@@ -135,8 +129,7 @@
 		"ColumnData": {
 			"properties": {
 				"_id": {
-					"type": "string",
-					"x-nullable": true
+					"type": "string"
 				},
 				"title": {
 					"type": "string"
@@ -153,7 +146,7 @@
 			"type": "object",
 			"additionalProperties": false
 		},
-		"BoardResponseData": {
+		"BoardDTO": {
 			"properties": {
 				"title": {
 					"type": "string"
@@ -216,10 +209,13 @@
 						"description": "Ok",
 						"schema": {
 							"items": {
-								"$ref": "#/definitions/UserOutputData"
+								"$ref": "#/definitions/UserDTO"
 							},
 							"type": "array"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					}
 				},
 				"description": "Gets all users (remove password from response)",
@@ -242,8 +238,11 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/UserOutputData"
+							"$ref": "#/definitions/UserDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					}
 				},
 				"description": "Creates a new user (remove password from response)",
@@ -277,8 +276,14 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/UserOutputData"
+							"$ref": "#/definitions/UserDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Gets a user by ID\r\n\r\ne.g. “/users/123” (remove password from response)",
@@ -308,8 +313,14 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/UserOutputData"
+							"$ref": "#/definitions/UserDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Updates a user by ID",
@@ -347,8 +358,14 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/UserOutputData"
+							"$ref": "#/definitions/UserDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Deletes user by ID.\r\n\r\nWhen somebody DELETE User, all Tasks where User is assignee should be\r\nupdated to put userId=null",
@@ -381,10 +398,13 @@
 						"description": "Ok",
 						"schema": {
 							"items": {
-								"$ref": "#/definitions/TaskResponseData"
+								"$ref": "#/definitions/TaskDTO"
 							},
 							"type": "array"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					}
 				},
 				"description": "Gets tasks by the Board ID\r\n(e.g. “/board/1/tasks”)",
@@ -414,8 +434,11 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/TaskResponseData"
+							"$ref": "#/definitions/TaskDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					}
 				},
 				"description": "Creates a new task",
@@ -455,8 +478,14 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/TaskResponseData"
+							"$ref": "#/definitions/TaskDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Gets the Task by the Board's and task ID\r\n(e.g. “/board/1/tasks/123”)",
@@ -492,8 +521,14 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/TaskResponseData"
+							"$ref": "#/definitions/TaskDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Updates the Task by ID",
@@ -537,8 +572,14 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/TaskResponseData"
+							"$ref": "#/definitions/TaskDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Deletes Task by ID.",
@@ -578,18 +619,23 @@
 						"schema": {
 							"properties": {
 								"token": {
-									"additionalProperties": true,
-									"type": "object"
+									"additionalProperties": true
 								}
 							},
 							"required": [
 								"token"
 							],
 							"type": "object"
+						},
+						"examples": {
+							"application/json": {
+								"login": "admin",
+								"password": "admin"
+							}
 						}
 					},
 					"403": {
-						"description": "Forbidden"
+						"description": "Forbidden, login or password incorrect"
 					}
 				},
 				"description": "Login a user and returns a JWT-token",
@@ -620,10 +666,13 @@
 						"description": "Ok",
 						"schema": {
 							"items": {
-								"$ref": "#/definitions/BoardResponseData"
+								"$ref": "#/definitions/BoardDTO"
 							},
 							"type": "array"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					}
 				},
 				"description": "Returns all boards",
@@ -646,8 +695,11 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/BoardResponseData"
+							"$ref": "#/definitions/BoardDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
 					}
 				},
 				"description": "Creates a new board",
@@ -681,8 +733,14 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/BoardResponseData"
+							"$ref": "#/definitions/BoardDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Gets the Board by ID (e.g. “/boards/123”)",
@@ -712,8 +770,14 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/BoardResponseData"
+							"$ref": "#/definitions/BoardDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Updates a Board by ID",
@@ -751,8 +815,14 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/BoardResponseData"
+							"$ref": "#/definitions/BoardDTO"
 						}
+					},
+					"401": {
+						"description": "You need to be authorized to work with that method"
+					},
+					"404": {
+						"description": "NotFound"
 					}
 				},
 				"description": "Deletes a Board by ID.\r\n\r\nWhen somebody DELETE Board,\r\nall its Tasks should be deleted as well",

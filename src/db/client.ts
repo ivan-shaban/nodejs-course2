@@ -4,10 +4,10 @@ import {
 } from 'mongoose'
 
 import { MONGO_CONNECTION_STRING } from '../common/config'
-import { User } from '../resources/users/user.model'
+import { UserModel } from '../resources/users/model'
 
 const addMockData = async () => {
-    await User.create({
+    await UserModel.create({
         name: 'admin',
         login: 'admin',
         password: 'admin',

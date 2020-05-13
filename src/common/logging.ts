@@ -29,7 +29,7 @@ export const logger: RequestHandler = (req, res, next) => {
 export const errorHandlerMiddleware: ErrorRequestHandler = (err, req, res, next) => {
     const status = err.status || 500
     const message = err.name === 'ValidateError'
-        ? `ValidateError: ${err.fields}`
+        ? `ValidateError: ${JSON.stringify(err.fields, null, 4)}`
         : err.message
 
     console.error(`>> error: ${status}: ${message}`)

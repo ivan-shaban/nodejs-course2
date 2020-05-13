@@ -13,12 +13,12 @@ import {
 import { inject } from 'inversify'
 
 import { TasksService } from './service'
-import { TaskData } from './task.model'
+import { TaskData } from './model'
 
 @Route('boards')
 @Tags('Tasks')
 @Security('jwt')
-@Response('401', 'Unathorized')
+@Response('401', 'You need to be authorized to work with that method')
 export class TasksController extends Controller {
     @inject(TasksService)
     private readonly tasksService!: TasksService
@@ -45,8 +45,8 @@ export class TasksController extends Controller {
      * (e.g. “/board/1/tasks/123”)
      */
     @Get('{boardId}/tasks/{id}')
+    @Response('404', 'NotFound')
     getTaskById(boardId: string, id: string) {
-    // getTaskById(@Path('boardId') boardId: string, id: string) {
         return this.tasksService.getTaskById(boardId, id)
     }
 
@@ -54,6 +54,7 @@ export class TasksController extends Controller {
      * Updates the Task by ID
      */
     @Put('{boardId}/tasks/{id}')
+    @Response('404', 'NotFound')
     updateTask(boardId: string, id: string, @Body() data: TaskData) {
         return this.tasksService.updateTask(boardId, id, data)
     }
@@ -62,6 +63,7 @@ export class TasksController extends Controller {
      * Deletes Task by ID.
      */
     @Delete('{boardId}/tasks/{id}')
+    @Response('404', 'NotFound')
     deleteTaskById(boardId: string, id: string) {
         return this.tasksService.deleteTaskById(boardId, id)
     }

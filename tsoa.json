@@ -1,8 +1,8 @@
 {
-  "swagger": {
-    "noImplicitAdditionalProperties": "silently-remove-extras",
+  "entryFile": "./src/server.ts",
+  "noImplicitAdditionalProperties": "silently-remove-extras",
+  "spec": {
     "outputDirectory": "./doc",
-    "entryFile": "./src/server.ts",
     "securityDefinitions": {
       "jwt": {
         "in": "header",
@@ -13,7 +13,6 @@
   },
   "routes": {
     "basePath": "/",
-    "entryFile": "./src/server.ts",
     "routesDir": "./src/router",
     "iocModule": "./src/di/inversify.config",
     "authenticationModule": "./src/common/authentication.ts"

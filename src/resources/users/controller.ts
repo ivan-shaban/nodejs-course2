@@ -13,12 +13,12 @@ import {
 import { inject } from 'inversify'
 
 import { UsersService } from './service'
-import { UserData } from './user.model'
+import { UserData } from './model'
 
 @Route('users')
 @Tags('Users')
 @Security('jwt')
-@Response('401', 'Unathorized')
+@Response('401', 'You need to be authorized to work with that method')
 export class UsersController extends Controller {
     @inject(UsersService)
     private readonly usersService!: UsersService
@@ -45,6 +45,7 @@ export class UsersController extends Controller {
      * e.g. “/users/123” (remove password from response)
      */
     @Get('{id}')
+    @Response('404', 'NotFound')
     getUserById(id: string) {
         return this.usersService.getUserById(id)
     }
@@ -53,6 +54,7 @@ export class UsersController extends Controller {
      * Updates a user by ID
      */
     @Put('{id}')
+    @Response('404', 'NotFound')
     updateUser(id: string, @Body() data: UserData) {
         return this.usersService.updateUser(id, data)
     }
@@ -64,6 +66,7 @@ export class UsersController extends Controller {
      * updated to put userId=null
      */
     @Delete('{id}')
+    @Response('404', 'NotFound')
     deleteUser(id: string) {
         return this.usersService.deleteUser(id)
     }
